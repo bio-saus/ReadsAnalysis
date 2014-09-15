@@ -8,6 +8,7 @@ public class FilePreferencesPane extends JPanel {
 
     private Font FONT_DEFAULT;
     private Color FONT_DEFAULT_COLOR;
+    private SelectFilePane selectFile;
 
     public FilePreferencesPane(Font font) {
 
@@ -15,20 +16,13 @@ public class FilePreferencesPane extends JPanel {
         FONT_DEFAULT_COLOR = new Color(200, 200, 200);
 
         setBackground(new Color(50, 50, 50));
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension(150, 0));
 
-        JLabel open = new JLabel("Open file...");
-        JLabel shiz = new JLabel("Analyse all dem shiz!");
+        selectFile = new SelectFilePane(FONT_DEFAULT);
 
-        open.setForeground(FONT_DEFAULT_COLOR);
-        shiz.setForeground(FONT_DEFAULT_COLOR);
-
-        open.setFont(FONT_DEFAULT);
-        shiz.setFont(FONT_DEFAULT);
-
-        add(open);
-        add(shiz);
+        add(selectFile, BorderLayout.PAGE_START);
 
     }
 }
