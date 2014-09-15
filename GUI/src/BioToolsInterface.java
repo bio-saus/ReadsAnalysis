@@ -10,6 +10,7 @@ public class BioToolsInterface extends JFrame {
 
         setSize(FRAMESIZE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
 
     }
 }

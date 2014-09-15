@@ -1,8 +1,14 @@
+import java.awt.*;
+
 /**
  * Created by Matthijs on 15-09-14.
  */
 public class Main {
+
+    private static BioToolsInterface gui;
+
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        gui = new BioToolsInterface(new Dimension(600, 450));
+        gui.setVisible(true);
     }
 }
