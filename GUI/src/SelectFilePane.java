@@ -40,9 +40,9 @@ public class SelectFilePane extends JPanel {
             }
         });
 
-        add(selectFileButton, Component.LEFT_ALIGNMENT);
+        add(selectFileButton);
         add(Box.createRigidArea(new Dimension(0, 5)));
-        add(selectedFileField, Component.LEFT_ALIGNMENT);
+        add(selectedFileField);
 
     }
 
