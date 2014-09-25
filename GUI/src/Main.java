@@ -8,7 +8,7 @@ public class Main {
     private static BioToolsInterface gui;
 
     public static void main(String[] args) {
-        gui = new BioToolsInterface(new Dimension(600, 450));
+        gui = new BioToolsInterface(new Dimension(600, 300));
         gui.setVisible(true);
     }
 }

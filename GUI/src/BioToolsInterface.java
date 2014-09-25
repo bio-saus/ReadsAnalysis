@@ -7,7 +7,7 @@ import java.awt.*;
 public class BioToolsInterface extends JFrame {
 
     private FilePreferencesPane preferences;
-    private SequenceViewerPane seqViewer;
+    private SelectableCirlcePane seqViewer;
     private Font FONT_NORMAL;
 
     public BioToolsInterface(Dimension FRAMESIZE) {
@@ -19,7 +19,7 @@ public class BioToolsInterface extends JFrame {
         setLayout(new BorderLayout());
 
         preferences = new FilePreferencesPane(FONT_NORMAL);
-        seqViewer = new SequenceViewerPane();
+        seqViewer = new SelectableCirlcePane();
 
         add(preferences, BorderLayout.LINE_START);
         add(seqViewer, BorderLayout.CENTER);
