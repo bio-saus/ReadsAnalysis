@@ -23,5 +23,6 @@ public class BioToolsInterface extends JFrame {
 
         add(preferences, BorderLayout.LINE_START);
         add(seqViewer, BorderLayout.CENTER);
+
     }
 }

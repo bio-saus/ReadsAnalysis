@@ -36,17 +36,24 @@ public class SelectableCirlcePane extends JPanel {
         addMouseMotionListener(new MouseMotionListener() {
 
             public void mouseMoved(MouseEvent e) {
-                if (baseCircle.hasEdgeContact(e.getPoint(), 10) || seletedCircle.hasEdgeContact(e.getPoint(), 10)) {
-                    double degree = baseCircle.getDegree(e.getPoint());
-                    if (baseCircle.isVisible(degree)) {
-                        seletedCircle.setEnd(baseCircle.getPercentage(degree));
-                        repaint();
-                    }
-                }
+
             }
 
             public void mouseDragged(MouseEvent e) {
-
+                if (baseCircle.hasEdgeContact(e.getPoint(), 10) || seletedCircle.hasEdgeContact(e.getPoint(), 10)) {
+                    double degree = baseCircle.getDegree(e.getPoint());
+                    if (baseCircle.isVisible(degree)) {
+                        double percentage = baseCircle.getPercentage(degree);
+                        double deltaStart = Math.abs(seletedCircle.getStart() - percentage);
+                        double deltaEnd = Math.abs(seletedCircle.getEnd() - percentage);
+                        if (deltaStart > deltaEnd && deltaEnd < 0.1) {
+                            seletedCircle.setEnd(percentage);
+                        } else if (deltaStart < 0.1) {
+                            seletedCircle.setStart(percentage);
+                        }
+                        repaint();
+                    }
+                }
             }
 
         });

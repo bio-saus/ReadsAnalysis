@@ -28,12 +28,20 @@ public class ArchedCirlce {
         }
     }
 
+    public double getStart() {
+        return start;
+    }
+
     public void setEnd(double x) {
         if (x >= 0 && x <= 1) {
             end = x;
         } else {
             System.out.println("ArchedCirlce.setEnd(" + x + ") ignored");
         }
+    }
+
+    public double getEnd() {
+        return end;
     }
 
     public double getRadius() {
