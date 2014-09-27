@@ -23,8 +23,10 @@ public class ArchedCirlce {
     public void setStart(double x) {
         if (x >= 0 && x <= 1) {
             start = x;
-        } else {
-            System.out.println("ArchedCirlce.setStart(" + x + ") ignored");
+        } else if (x < 0) {
+            start = 0;
+        } else if (x > 1) {
+            start = 1;
         }
     }
 
@@ -35,8 +37,10 @@ public class ArchedCirlce {
     public void setEnd(double x) {
         if (x >= 0 && x <= 1) {
             end = x;
-        } else {
-            System.out.println("ArchedCirlce.setEnd(" + x + ") ignored");
+        } else if (x < 0) {
+            end = 0;
+        } else if (x > 1) {
+            end = 1;
         }
     }
 
@@ -93,7 +97,7 @@ public class ArchedCirlce {
             x = (parent.getWidth() - w) / 2;
         }
         double endDegree = (end - start) * 350;
-        double startDegree = start * 360 + 95;
+        double startDegree = start * 350 + 95;
 
         arch = new Arc2D.Double(x, y, w, h, startDegree, endDegree, Arc2D.OPEN);
         return arch;
