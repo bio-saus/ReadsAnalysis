@@ -60,6 +60,10 @@ public class ArchedCirlce {
         return (degree - 5) / 350;
     }
 
+    public double getDegreeFromPercentage(double percentage) {
+        return percentage * 350 + 5;
+    }
+
     public boolean isVisible(double degree) {
         return (degree >= 5 && degree <= 355);
     }
@@ -101,5 +105,14 @@ public class ArchedCirlce {
 
         arch = new Arc2D.Double(x, y, w, h, startDegree, endDegree, Arc2D.OPEN);
         return arch;
+    }
+
+    public Point getPoint(double value) {
+        Point center = getCenter();
+        double range = getRadius();
+        double angle = (getDegreeFromPercentage(value) + 90) % 360;
+        double x = center.getX() + (range * Math.cos(Math.toRadians(angle)));
+        double y = center.getY() + (-range * Math.sin(Math.toRadians(angle)));
+        return new Point((int) x, (int) y);
     }
 }
