@@ -19,9 +19,9 @@ public class GenomeTextArea extends JTextArea {
 
         borderSize = 10;
         font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
-        gapInterval = 5;
         sequenceLength = 0;
         numberOfColums = 0;
+        setGapInterval(5);
 
         setLineWrap(true);
         setWrapStyleWord(true);
@@ -47,6 +47,10 @@ public class GenomeTextArea extends JTextArea {
 
         });
 
+    }
+
+    public void setGapInterval(int gap) {
+        gapInterval = gap;
     }
 
     public int getWrappedLines() {

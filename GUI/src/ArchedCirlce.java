@@ -31,7 +31,7 @@ public class ArchedCirlce {
     }
 
     public double getStart() {
-        return start;
+        return Math.min(start, end);
     }
 
     public void setEnd(double x) {
@@ -45,7 +45,7 @@ public class ArchedCirlce {
     }
 
     public double getEnd() {
-        return end;
+        return Math.max(start, end);
     }
 
     public double getRadius() {

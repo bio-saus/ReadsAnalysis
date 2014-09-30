@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.io.IOException;
 
 /**
  * Created by matthijs on 27-9-14.
@@ -10,18 +13,41 @@ public class SequenceSelectionPane extends JPanel {
 
     private SelectableCirlcePane circle;
     private GenomeViewer sequence;
+    private FastaReader file;
 
     public SequenceSelectionPane() {
 
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+//        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new BorderLayout());
 
         circle = new SelectableCirlcePane();
         sequence = new GenomeViewer();
-
-        sequence.setOffset(439);
-        sequence.setSequence("ATCGGTGCGTACCACACATGTCGCGCGCTCGGCTCACTCTAAATATTCTCGCACTATCGGTGCGTACCACACACAAAACACATGTGTCGCGCGCTCGGCTCACTCTAAATATTCTCGCACTATCGGTGCGTACCACACACAAAACACATGTGTCGCGCGCTCGGCTCACTCTAAATATTCTCGCACTATCGGTGCGTACCACACACAAAACACATGTGTCGCGCGCTCGGCTCACTCTAAATATTCTCGCACTATCGGTGCGTACCACACACAAAACACATGTGTCGCGCGCTCGGCTCACTCTAAATATTCTCGCACT");
+        try {
+            file = new FastaReader("/home/matthijs/Dropbox/Hogeschool/05) Protein Modeling/Sequentie Analyse/3e jaar/query.fa");
+        } catch (IOException e) {
+            System.out.println("WARNING: file not found");
+        }
 
         sequence.setBackground(getBackground());
+
+        circle.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            long len = file.getSequenceLength();
+                            long start = (long) (len * circle.getStartPercentage());
+                            long end = (long) (len * circle.getEndPercentage());
+                            String seq = file.getSequence(start, end);
+                            sequence.setOffset((int) start);
+                            sequence.setSequence(seq);
+                            setPreferredSizeToCircleWidth();
+                        } catch (IOException error) {
+
+                        }
+                    }
+
+                }
+        );
 
         addComponentListener(new ComponentListener() {
             public void componentMoved(ComponentEvent e) {
@@ -32,6 +58,7 @@ public class SequenceSelectionPane extends JPanel {
                 int max = 400;
                 if (circle.getHeight() != width && circle.getHeight() != 400) {
                     circle.setPreferredSize(new Dimension(width, Math.min(max, width)));
+                    setPreferredSizeToCircleWidth();
                 }
             }
 
@@ -42,8 +69,8 @@ public class SequenceSelectionPane extends JPanel {
             }
         });
 
-        add(circle);
-        add(sequence);
+        add(circle, BorderLayout.PAGE_START);
+        add(sequence, BorderLayout.CENTER);
 
     }
 
@@ -51,6 +78,10 @@ public class SequenceSelectionPane extends JPanel {
         return (int) (circle.getPreferredSize().getHeight() +
                 sequence.getPreferredSize().getHeight()
         );
+    }
+
+    private void setPreferredSizeToCircleWidth() {
+        setPreferredSize(new Dimension(circle.getWidth(), getPreferredHeight()));
     }
 
 }

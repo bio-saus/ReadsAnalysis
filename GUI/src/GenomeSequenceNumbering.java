@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
 import java.util.*;
 
 /**
@@ -39,6 +40,7 @@ public class GenomeSequenceNumbering extends JPanel {
 
             start += interval;
         }
+        doLayout();
     }
 
     private void delLabels() {
@@ -46,5 +48,6 @@ public class GenomeSequenceNumbering extends JPanel {
             remove(labels.get(i));
         }
         labels.clear();
+        repaint();
     }
 }

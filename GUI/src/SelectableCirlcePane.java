@@ -78,14 +78,14 @@ public class SelectableCirlcePane extends JPanel {
 
                     double degree = baseCircle.getDegree(e.getPoint());
                     double percentage = baseCircle.getPercentage(degree);
-                    double deltaStart = Math.abs(seletedCircle.getStart() - percentage);
-                    double deltaEnd = Math.abs(seletedCircle.getEnd() - percentage);
+
                     if (switchEnd) {
                         seletedCircle.setEnd(percentage);
                     } else {
                         seletedCircle.setStart(percentage);
                     }
                     repaint();
+                    notifyListeners();
                 }
 
             }
@@ -134,6 +134,21 @@ public class SelectableCirlcePane extends JPanel {
             action.actionPerformed(event);
         }
     }
+
+//    public abstract class ValueActionListener extends AbstractAction {
+//
+//        public void actionPerformed(ActionEvent e){
+//
+//        }
+//
+//        public double getStart() {
+//            return getStartPercentage();
+//        }
+//
+//        public double getEnd() {
+//            return getEndPercentage();
+//        }
+//    }
 
     public double getStartPercentage() {
         return seletedCircle.getStart();

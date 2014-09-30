@@ -45,6 +45,7 @@ public class GenomeViewer extends JPanel {
 
     public void setSequence(String seq) {
         sequence.setGappedText(seq);
+        index.setNumbering(offset, sequence.getWrappedLines(), sequence.getWidthInBases());
     }
 
     public void setOffset(int num) {

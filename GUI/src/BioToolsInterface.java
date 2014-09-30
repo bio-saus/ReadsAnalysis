@@ -24,10 +24,16 @@ public class BioToolsInterface extends JFrame {
 
         final JScrollPane seqScrollPane = new JScrollPane(
                 seqViewer,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
         seqScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        seqScrollPane.setViewport(new JViewport() {
+            @Override
+            public void scrollRectToVisible(Rectangle rect) {
+            }
+        });
+        seqScrollPane.setViewportView(seqViewer);
         seqScrollPane.addComponentListener(new ComponentListener() {
 
             public void componentMoved(ComponentEvent e) {
