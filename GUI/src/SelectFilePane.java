@@ -9,7 +9,7 @@ import java.io.File;
  */
 public class SelectFilePane extends JPanel {
 
-    private JButton selectFileButton;
+    public JButton selectFileButton;
     private JTextField selectedFileField;
     private static File file;
 
@@ -27,19 +27,6 @@ public class SelectFilePane extends JPanel {
         selectFileButton.setFont(font);
         selectedFileField.setFont(font);
 
-        selectFileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                int exitValue = fc.showOpenDialog(SelectFilePane.this);
-                if (exitValue == JFileChooser.APPROVE_OPTION) {
-                    file = fc.getSelectedFile();
-                    selectedFileField.setText(file.getName());
-                }
-                System.out.println(SelectFilePane.this.getSize());
-            }
-        });
-
         add(selectFileButton);
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(selectedFileField);
@@ -52,6 +39,14 @@ public class SelectFilePane extends JPanel {
 
     public static void setFile(File file) {
         SelectFilePane.file = file;
+    }
+
+    public void addFileButtonListener(ActionListener listener) {
+        selectFileButton.addActionListener(listener);
+    }
+
+    public void setInfo(String message) {
+        selectedFileField.setText(message);
     }
 
 }

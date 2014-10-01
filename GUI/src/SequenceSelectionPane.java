@@ -15,39 +15,30 @@ public class SequenceSelectionPane extends JPanel {
     private GenomeViewer sequence;
     private FastaReader file;
 
-    public SequenceSelectionPane() {
+    public SequenceSelectionPane(String filepath) throws IOException {
 
-//        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setLayout(new BorderLayout());
 
         circle = new SelectableCirlcePane();
         sequence = new GenomeViewer();
-        try {
-            file = new FastaReader("/home/matthijs/Dropbox/Hogeschool/05) Protein Modeling/Sequentie Analyse/3e jaar/query.fa");
-        } catch (IOException e) {
-            System.out.println("WARNING: file not found");
-        }
+        file = new FastaReader(filepath);
 
         sequence.setBackground(getBackground());
 
-        circle.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-                            long len = file.getSequenceLength();
-                            long start = (long) (len * circle.getStartPercentage());
-                            long end = (long) (len * circle.getEndPercentage());
-                            String seq = file.getSequence(start, end);
-                            sequence.setOffset((int) start);
-                            sequence.setSequence(seq);
-                            setPreferredSizeToCircleWidth();
-                        } catch (IOException error) {
-
-                        }
-                    }
-
+        circle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    long len = file.getSequenceLength();
+                    long start = (long) (len * circle.getStartPercentage());
+                    long end = (long) (len * circle.getEndPercentage());
+                    String seq = file.getSequence(start, end);
+                    sequence.setOffset((int) start);
+                    sequence.setSequence(seq);
+                    setPreferredSizeToCircleWidth();
+                } catch (IOException error) {
                 }
-        );
+            }
+        });
 
         addComponentListener(new ComponentListener() {
             public void componentMoved(ComponentEvent e) {
@@ -80,7 +71,7 @@ public class SequenceSelectionPane extends JPanel {
         );
     }
 
-    private void setPreferredSizeToCircleWidth() {
+    public void setPreferredSizeToCircleWidth() {
         setPreferredSize(new Dimension(circle.getWidth(), getPreferredHeight()));
     }
 
