@@ -9,7 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
         gui = new BioToolsInterface();
-        gui.setSize(new Dimension(500, 500));
         gui.setVisible(true);
     }
 }

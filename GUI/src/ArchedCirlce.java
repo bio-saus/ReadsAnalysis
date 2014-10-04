@@ -7,45 +7,51 @@ import javax.swing.JComponent;
  */
 public class ArchedCirlce {
 
-    private double start = 0;
-    private double end = 0;
+    private double A = 0;
+    private double B = 0;
     private double padding;
+    private int gap;
     private JComponent parent;
     private Arc2D.Double arch;
 
     public ArchedCirlce(JComponent container, double px_from_edge, double x1, double x2) {
         padding = px_from_edge;
-        setStart(x1);
-        setEnd(x2);
+        setA(x1);
+        setB(x2);
         parent = container;
+        gap = 20;
     }
 
-    public void setStart(double x) {
+    public void setA(double x) {
         if (x >= 0 && x <= 1) {
-            start = x;
+            A = x;
         } else if (x < 0) {
-            start = 0;
+            A = 0;
         } else if (x > 1) {
-            start = 1;
+            A = 1;
         }
     }
 
-    public double getStart() {
-        return Math.min(start, end);
+    public double getLeftBound() {
+        return Math.min(A, B);
     }
 
-    public void setEnd(double x) {
+    public void setB(double x) {
         if (x >= 0 && x <= 1) {
-            end = x;
+            B = x;
         } else if (x < 0) {
-            end = 0;
+            B = 0;
         } else if (x > 1) {
-            end = 1;
+            B = 1;
         }
     }
 
-    public double getEnd() {
-        return Math.max(start, end);
+    public double getRightBound() {
+        return Math.max(A, B);
+    }
+
+    public double getDelta() {
+        return Math.abs(A - B);
     }
 
     public double getRadius() {
@@ -57,11 +63,11 @@ public class ArchedCirlce {
     }
 
     public double getPercentage(double degree) {
-        return (degree - 5) / 350;
+        return (degree - gap) / (360 - gap * 2);
     }
 
     public double getDegreeFromPercentage(double percentage) {
-        return percentage * 350 + 5;
+        return percentage * (360 - gap * 2) + gap;
     }
 
     public boolean isVisible(double degree) {
@@ -100,10 +106,14 @@ public class ArchedCirlce {
             w = h = parent.getHeight() - y * 2;
             x = (parent.getWidth() - w) / 2;
         }
-        double endDegree = (end - start) * 350;
-        double startDegree = start * 350 + 95;
 
-        arch = new Arc2D.Double(x, y, w, h, startDegree, endDegree, Arc2D.OPEN);
+        double start = getLeftBound() * (360 - gap * 2) + gap;
+        double delta = getDelta() * (360 - gap * 2);
+
+        // Accumulate offset
+        start = (start + 90) % 360;
+
+        arch = new Arc2D.Double(x, y, w, h, start, delta, Arc2D.OPEN);
         return arch;
     }
 
